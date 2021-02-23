@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            var storedData = sessionStorage.getItem("list_place");
+            var data = JSON.parse(storedData);
+            var count = 0;
+            let places = [];
+            $.each(data, function(index, value) {
+                if (count === 0) {
+                    document.getElementById("buyTickets").innerHTML += "<h4>Вы выбрали:</h4>";
+                }
+                document.getElementById("buyTickets").innerHTML += "<h4>" + value + "</h4>";
+                count++;
+                places.push(index);
+            });
+            var sum = 500 * count;
+            document.getElementById("buyTickets").innerHTML += "<h4>Сумма к оплате: " + sum + " рублей.</h4>";
+            document.getElementById("places").value = places;
+        });
+    </script>
+    <title>Cinema</title>
+</head>
+<body>
+<div class="container">
+    <div id="buyTickets"></div>
+    <div>
+        <form action="hall" method="post">
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="places" name="places">
+                <label for="fio">ФИО</label>
+                <input type="text" class="form-control" id="fio" name="fio" placeholder="ФИО" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Номер телефона</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Номер телефона" required>
+            </div>
+            <button type="submit" class="btn btn-success">Оплатить</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/RvDmitry/job4j_cinema.svg?branch=main)](https://travis-ci.com/RvDmitry/job4j_cinema)
+[![Build Status](https://travis-ci.com/RvDmitry/job4j_cinema.svg?branch=master)](https://travis-ci.com/RvDmitry/job4j_cinema)
 
 # Cinema
 

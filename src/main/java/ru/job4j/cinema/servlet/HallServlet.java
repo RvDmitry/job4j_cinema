@@ -85,6 +85,6 @@ public class HallServlet extends HttpServlet {
             }
         }
         req.setAttribute("tickets", tickets);
-        getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
+        req.getRequestDispatcher("/result.jsp").forward(req, resp);
     }
 }

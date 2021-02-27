@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,14 +66,25 @@ public class HallServlet extends HttpServlet {
         String fio = req.getParameter("fio");
         String phone = req.getParameter("phone");
         LOG.info("Получены данные: места: {}, ФИО: {}, телефон: {}", places, fio, phone);
+        List<String> tickets = new ArrayList<>();
         Account account = PsqlStore.instOf().findAccount(phone);
         if (account == null) {
             account = PsqlStore.instOf().save(new Account(fio, phone));
         }
-        for (var place : places.split(",")) {
+        JSONObject json = new JSONObject(places);
+        for (var place : json.keySet()) {
             Hall hall = PsqlStore.instOf().save(new Hall(Integer.parseInt(place), account.getId()));
-            LOG.info("Место {} куплено посетителем {}", hall, account);
+            if (hall.getId() == 0) {
+                LOG.info("Место {} уже было забронировано.", place);
+                tickets.add(json.getString(place)
+                        + " - уже кто-то забронировал! Выберите другое.");
+            } else {
+                LOG.info("Место {} забронировано посетителем {}", hall, account);
+                tickets.add(json.getString(place)
+                        + " - забронировано успешно!");
+            }
         }
-        resp.sendRedirect(req.getContextPath() + "/success.html");
+        req.setAttribute("tickets", tickets);
+        getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
     }
 }

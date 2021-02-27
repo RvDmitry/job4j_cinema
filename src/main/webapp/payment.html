@@ -12,24 +12,22 @@
             var storedData = sessionStorage.getItem("list_place");
             var data = JSON.parse(storedData);
             var count = 0;
-            let places = [];
             $.each(data, function(index, value) {
                 if (count === 0) {
                     document.getElementById("buyTickets").innerHTML += "<h4>Вы выбрали:</h4>";
                 }
                 document.getElementById("buyTickets").innerHTML += "<h4>" + value + "</h4>";
                 count++;
-                places.push(index);
             });
             var sum = 500 * count;
             document.getElementById("buyTickets").innerHTML += "<h4>Сумма к оплате: " + sum + " рублей.</h4>";
-            document.getElementById("places").value = places;
+            document.getElementById("places").value = storedData;
         });
     </script>
     <title>Cinema</title>
 </head>
 <body>
-<div class="container">
+<div class="container pt-3">
     <div id="buyTickets"></div>
     <div>
         <form action="hall" method="post">

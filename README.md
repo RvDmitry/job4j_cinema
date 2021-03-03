@@ -9,7 +9,7 @@
 **Используемые технологии:**
 
 - Java 14
-- Java Servlets
+- Java Servlets, JSP
 - HTML, JavaScript, jQuery, Ajax
 - Apache Tomcat
 - PostgreSQL
